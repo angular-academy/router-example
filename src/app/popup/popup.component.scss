@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    border: 2px solid red;
+    padding: 10px;
+    position: fixed;
+    z-index: 1000;
+    height: 50vh; // viewportheight
+    width: 50vw; // viewportwidth
+    left: 25%;
+    top: 25%;
+    background: white;
+    button.closeButton {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background-color: red;
+        color: white;
+    }
+}
