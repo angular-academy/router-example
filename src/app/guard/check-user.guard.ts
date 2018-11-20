@@ -8,7 +8,7 @@ import { UserService } from '../user.service';
 })
 export class CheckUserGuard implements CanActivate {
 
-  constructor( private userService: UserService) {
+  constructor(private userService: UserService) {
 
   }
   canActivate(

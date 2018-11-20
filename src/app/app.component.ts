@@ -23,6 +23,6 @@ export class AppComponent implements OnInit {
   }
 
   gotoStart() {
-    this.router.navigate(['start']);
+    this.router.navigate(['start'], {queryParams: {user: 'admin'}, });
   }
 }

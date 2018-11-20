@@ -9,6 +9,6 @@ export class UserService {
   public role: UserRoles;
 
   constructor() {
-    this.role = UserRoles.VISITOR;
+    this.role = UserRoles.ADMIN;
   }
 }

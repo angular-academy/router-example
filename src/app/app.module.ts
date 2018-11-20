@@ -9,6 +9,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ProtectedContentComponent } from './protected-content/protected-content.component';
 import { PopupModule } from './popup/popup.module';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PopupModule } from './popup/popup.module';
     ItemListComponent,
     NotFoundComponent,
     ItemDetailsComponent,
-    ProtectedContentComponent
+    ProtectedContentComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,

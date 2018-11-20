@@ -7,6 +7,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ProtectedContentComponent } from './protected-content/protected-content.component';
 import { CheckUserGuard } from './guard/check-user.guard';
 import { UserRoles } from './user-roles.enum';
+import { BannerComponent } from './banner/banner.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,16 @@ const routes: Routes = [
   {
     path: 'lazy',
     loadChildren: './lazy/lazy.module#LazyModule'
+  },
+  {
+    path: '',
+    component: StartComponent,
+    outlet: 'footer'
+  },
+  {
+    path: 'banner',
+    component: BannerComponent,
+    outlet: 'footer'
   },
   {
     path: '',

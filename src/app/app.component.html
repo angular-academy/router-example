@@ -1,18 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<header>
-    angular router example
+<header class="header">
+  angular router example
 </header>
-<nav>
-    <a [routerLink]="'/start'">Start</a>
-    <a [routerLink]="'/item-list'">Item List</a>
-    <a [routerLink]="'/404'">Not Found</a>
-    <a [routerLink]="'/lazy'">Lazy</a>
-    <a [routerLink]="'/protected-content'">Protected</a>
-    <button (click)="gotoStart()">Start</button>
-    <a [routerLink]="[{outlets: {popup: ['popup','start']}}]">Popup Start</a>
+
+<nav class="sidemenu">
+  <a [routerLink]="'/start'">Start</a>
+  <a [routerLink]="'/item-list'">Item List</a>
+  <a [routerLink]="'/404'">Not Found</a>
+  <a [routerLink]="'/lazy'">Lazy</a>
+  <a [routerLink]="'/protected-content'">Protected</a>
+  <a routerLink="" (click)="gotoStart()">Start</a>
+  <a [routerLink]="[{outlets: {popup: ['popup','start'], footer: ['banner'], primary: ['item-list']}}]">Popup Start</a>
+  <a [routerLink]="[{outlets: {footer: ['banner']}}]">Footer</a>
 </nav>
 
-<router-outlet></router-outlet>
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
 
+<footer class="footer">
+  <router-outlet name="footer"></router-outlet>
+</footer>
 
-<router-outlet name="popup"></router-outlet>
+<div class="popup">
+  <router-outlet name="popup"></router-outlet>
+</div>

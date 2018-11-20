@@ -1,9 +1,36 @@
 :host {
-    display: block;
-    nav {
-        a {
-            display: inline-block;
-            margin: 0 10px;
-        }
+  .header {
+    color: white;
+    grid-area: header;
+    padding: 50px;
+    background-color: brown;
+  }
+
+  .sidemenu {
+    grid-area: sidemenu;
+    padding: 50px;
+    background-color: indianred;
+    a {
+      display: block;
+      margin: 10px 0 10px 0;
     }
+  }
+
+  .content {
+    grid-area: content;
+    padding: 50px;
+  }
+
+  .footer {
+    grid-area: footer;
+    background-color: palevioletred;
+  }
+
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header header header" "sidemenu content content" "footer footer footer";
+
+
 }

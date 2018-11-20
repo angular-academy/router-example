@@ -1,0 +1,9 @@
+:host {
+  display:flex;
+  justify-content: space-around;
+  a {
+    position: absolute;
+    margin-left: -20px;
+    color: darkred;
+  }
+}
