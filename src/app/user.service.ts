@@ -5,10 +5,14 @@ import { UserRoles } from './user-roles.enum';
   providedIn: 'root'
 })
 export class UserService {
-
   public role: UserRoles;
 
   constructor() {
-    this.role = UserRoles.ADMIN;
+    this.role = UserRoles.VISITOR;
+  }
+
+  switchUser() {
+    this.role === UserRoles.VISITOR ? this.role = UserRoles.USER : this.role = UserRoles.VISITOR;
+    return this.role;
   }
 }

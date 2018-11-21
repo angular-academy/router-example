@@ -29,17 +29,13 @@ const routes: Routes = [
     component: ProtectedContentComponent,
     canActivate: [CheckUserGuard],
     data: {
-      roles: [UserRoles.ADMIN]
+      granted: 'Access granted!',
+      denied: 'Access denied!'
     }
   },
   {
     path: 'lazy',
     loadChildren: './lazy/lazy.module#LazyModule'
-  },
-  {
-    path: '',
-    component: StartComponent,
-    outlet: 'footer'
   },
   {
     path: 'banner',

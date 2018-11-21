@@ -1,9 +1,16 @@
 :host {
-    display: block;
-    a {
-        display: inline-block;
-    }
-    a+a {
-        margin-left: 10px;
-    }
+  display: block;
+
+  a {
+    display: inline-block;
+    color: black;
+  }
+
+  a + a {
+    margin-left: 10px;
+  }
+
+  a.active {
+    text-decoration: none;
+  }
 }

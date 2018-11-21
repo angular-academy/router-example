@@ -1,9 +1,16 @@
 :host {
   .header {
+    display: flex;
+    justify-content: space-between;
     color: white;
     grid-area: header;
     padding: 50px;
     background-color: brown;
+
+    a {
+      text-decoration: underline;
+      color: white;
+    }
   }
 
   .sidemenu {
@@ -24,6 +31,14 @@
   .footer {
     grid-area: footer;
     background-color: palevioletred;
+  }
+
+  a {
+    color: black;
+  }
+
+  a.active {
+    text-decoration: none;
   }
 
   display: grid;

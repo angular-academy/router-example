@@ -7,12 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./start.component.scss']
 })
 export class StartComponent implements OnInit {
-  user = '';
+  extra = '';
   constructor(public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(qpmap => {
-      this.user = qpmap.get('user');
+      this.extra = qpmap.get('extra');
     });
   }
 

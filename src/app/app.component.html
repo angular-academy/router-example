@@ -1,17 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <header class="header">
-  angular router example
+  Angular Router Beispiel
+  <a (click)="userService.switchUser()" >{{this.userService.role}}</a>
 </header>
 
 <nav class="sidemenu">
-  <a [routerLink]="'/start'">Start</a>
-  <a [routerLink]="'/item-list'">Item List</a>
-  <a [routerLink]="'/404'">Not Found</a>
-  <a [routerLink]="'/lazy'">Lazy</a>
-  <a [routerLink]="'/protected-content'">Protected</a>
-  <a routerLink="" (click)="gotoStart()">Start</a>
-  <a [routerLink]="[{outlets: {popup: ['popup','start'], footer: ['banner'], primary: ['item-list']}}]">Popup Start</a>
-  <a [routerLink]="[{outlets: {footer: ['banner']}}]">Footer</a>
+  <a [routerLink]="'/start'" routerLinkActive="active">Start</a>
+  <a routerLink="" (click)="gotoStart()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Start</a>
+  <a [routerLink]="'/item-list'" routerLinkActive="active">Seiten</a>
+  <a [routerLink]="'/404'" routerLinkActive="active">Fehlerseite</a>
+  <a [routerLink]="'/lazy'" routerLinkActive="active">LazyLoad</a>
+  <a [routerLink]="'/protected-content'" routerLinkActive="active">Geschützt</a>
+  <a [routerLink]="[{outlets: {popup: ['popup','start']}}]" routerLinkActive="active">Popup</a>
+  <a [routerLink]="[{outlets: {footer: ['banner']}}]" routerLinkActive="active">Footer</a>
 </nav>
 
 <main class="content">

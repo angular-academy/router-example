@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UserService } from './user.service';
+import { UserRoles } from './user-roles.enum';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +14,12 @@ export class AppComponent implements OnInit {
 
   routerEventsSubscription: Subscription;
 
-  constructor(private router: Router) {
-
-  }
+  constructor(private router: Router, public userService: UserService) {}
 
   ngOnInit() {
-    this.routerEventsSubscription = this.router.events.subscribe(
-      routerEvent => console.log(routerEvent)
-    );
   }
 
   gotoStart() {
-    this.router.navigate(['start'], {queryParams: {user: 'admin'}, });
+    this.router.navigate(['start'], {queryParams: {extra: 'zurück'}});
   }
 }
