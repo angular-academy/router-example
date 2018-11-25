@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'router-example';
 
   routerEventsSubscription: Subscription;
@@ -20,6 +20,10 @@ export class AppComponent implements OnInit {
     this.routerEventsSubscription = this.router.events.subscribe(
       routerEvent => console.log(routerEvent)
     );
+  }
+
+  ngOnDestroy() {
+    this.routerEventsSubscription.unsubscribe();
   }
 
   gotoStart() {

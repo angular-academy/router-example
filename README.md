@@ -1,8 +1,15 @@
 # RouterExample
 
+## Link Sammlung
 
+* [angular routing & navigation](https://angular.io/guide/router)
+* [Router class](https://angular.io/api/router/Router)
+* [ActivatedRoute class](https://angular.io/api/router/ActivatedRoute)
+* [routerLink directive](https://angular.io/api/router/RouterLink)
+* [Route interface](https://angular.io/api/router/Route)
+* [CanActivate guard](https://angular.io/api/router/CanActivate)
 
-## Der Plan
+## Themen
 
 * Basics: Setup - Routen anlegen - Routen ansteuern
 * Lazy Loading
@@ -22,9 +29,9 @@ Beim Erstellen eines Projektes fragt uns die CLI, ob wir routing verwenden wolle
 
 Ansonsten kann jedes Modul mit einer Routing Tabelle erzeugt werden, indem der Parameter *--routing* hinuzgefügt wird:
 
-´´´bash
+```bash
 ng generate module todo-list --routing
-´´´
+```
 
 In diesem Modul können wir die Routing Tabelle für das Modul definieren.
 
@@ -157,7 +164,81 @@ export enum UserRoles {
 }
 ```
 
+Um den Zugriff auf diese Komponente zu kontrollieren erstellen wir eine *Guard* . Dies sind Services, die von angular im Zuge einer Navigation von angular aufgerufen werden.
+
+Als Beispiel wollen wir Benutzer-Rollen prüfen, hierzu erzeugen wir eine Guard:
+
+```bash
+mkdir src/app/guard
+cd srd/app/guard
+ng generate guard check-user
+```
+
+Wir gehen später auf die Implementierung ein und schauen uns an, wie wir die Guard verwenden:
+
+Ein *User-Service* stellt die aktuelle Rolle bereit. Wollen wir eine Route schützen, müssen wir die Guard an die Route hängen. Erwartet die Guard weitere Daten, können wir diese im *data* Feld übergeben:
+
+```typescript
+
+const routes: Routes = [
+  // ...
+  {
+    path: 'protected-content',
+    component: ProtectedContentComponent,
+    canActivate: [CheckUserGuard],
+    data: {
+      roles: [UserRoles.ADMIN]
+    }
+  },
+  // ...
+```
+
+Die Guard ist dann wie folgt implementiert:
+
+```typescript
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CheckUserGuard implements CanActivate {
+
+  constructor( private userService: UserService) {
+
+  }
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      console.log('check user guard called', next.data );
+
+      if (next.data.roles && next.data.roles.indexOf( this.userService.role ) !== -1 ) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+}
+```
+
 ## Teil 3 - Router Events
+
+Der Router ermöglicht es, aktuelle Vorgänge über [Events](https://angular.io/api/router/Event) auszulesen. Hierzu injected ihr den Router als Abhängigkeit und subscribed euch auf die *events* (siehe app-component):
+
+
+```typescript
+constructor(private router: Router) {
+```
+
+```typescript
+ngOnInit() {
+  this.routerEventsSubscription = this.router.events.subscribe(
+    routerEvent => console.log(routerEvent)
+  );
+}
+```
+
+Mittels Router Events könnt ihr zum Beispiel folgende Funktion in eure Anwendungen einbauen:
+* Anzeigen eines Loading-Spinners beim Laden weiterer Chunks (siehe auch Lazy Loading)
+* Url-Wechseln einem Tracker / Analytics Service mitteilen
 
 ## Teil 4 - Lazy Loading
 
@@ -196,4 +277,45 @@ Die Syntax ist wie folgt:
 * vor # steht der Pfad zum lazy-loaded Modul (ohne .ts), relativ zum aktuellen Modul
 * hinter # steht der Klassenname des lazy-loaded Module
 
-## Hintergrund: forRoot, forChild
+## Teil 5 - Named Outlets
+
+Über den Router aktivierte Komponenten werden über das[\<outlet\>\</outlet\>](https://angular.io/guide/router#router-outlet) Tag eingehangen (im DOM geschieht dies als direkter Nachbar des outlets).
+
+Angular unterstützt mehrere outlets, die über einen Names identifiziert werden und über das Routing individuell ansteuerbar sind:
+
+```html
+<router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>
+```
+
+Der Link besteht nun aus einem Wörterbuch, welches auf *outlets* und dann auf die *Namen* der einzelnen Outlets verweist.
+
+```html
+<a [routerLink]="[{outlets: {popup: ['popup','start']}}]">Popup Start</a>
+```
+TIP: Das Default-Outlet heißt *primary*. Es wird immer dann benutzt, wenn kein Outlet explizit genannt wird.
+
+
+Um einem benannten Outlet eine Komponente mitsamt Routing-Tabelle zuzuweisen, setzt ihr das Feld *outlet* in der [Route](https://angular.io/api/router/Route) Definition der Komponente (im Beispiel popup-component):
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'popup',
+    component: PopupComponent,
+    outlet: 'popup',
+    children: [
+      {
+        path: 'start',
+        component: StartComponent
+      },
+      ...
+```
+
+Wird ein outlet aktiviert, bleibt es aktiv bis es explizit geschlossen wird. Dies geschieht durch Zuweisen von *null* .
+
+```typescript
+closePopup() {
+  this.router.navigate([{outlets : {popup: null}}]);
+}
+```
