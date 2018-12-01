@@ -7,6 +7,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ProtectedContentComponent } from './protected-content/protected-content.component';
 import { CheckUserGuard } from './guard/check-user.guard';
 import { UserRoles } from './user-roles.enum';
+import { BannerComponent } from './banner/banner.component';
 
 const routes: Routes = [
   {
@@ -28,12 +29,18 @@ const routes: Routes = [
     component: ProtectedContentComponent,
     canActivate: [CheckUserGuard],
     data: {
-      roles: [UserRoles.ADMIN]
+      granted: 'Access granted!',
+      denied: 'Access denied!'
     }
   },
   {
     path: 'lazy',
     loadChildren: './lazy/lazy.module#LazyModule'
+  },
+  {
+    path: 'banner',
+    component: BannerComponent,
+    outlet: 'footer'
   },
   {
     path: '',

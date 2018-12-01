@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-start',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./start.component.scss']
 })
 export class StartComponent implements OnInit {
-
-  constructor() { }
+  extra = '';
+  constructor(public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe(qpmap => {
+      this.extra = qpmap.get('extra');
+    });
   }
 
 }
