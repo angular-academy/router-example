@@ -16,6 +16,7 @@
 * Guards
 * Router Events
 * Named Outlets (Popup)
+* Tipps
 
 ## Motivation
 
@@ -319,3 +320,9 @@ closePopup() {
   this.router.navigate([{outlets : {popup: null}}]);
 }
 ```
+
+## Tipps
+
+* [Router.navigate](https://angular.io/api/router/Router#navigate) gibt ein Promise zurück. Ihr könnt daran erkennen, ob eine Navigation erfolgreich war oder nicht. Ebenso könnt ihr Navigationen verketten (Beispiel: zuerst outlets schließen, dann zur not-found / not-authorized Seite navigieren)
+
+* Über *activate* und *deactivate* Events der [\<router-outlet\>](https://angular.io/api/router/RouterOutlet) Direktive könnt ihr in Komponenten programmatisch erfassen, welche Kinder gerade instanziiert bzw. von der Bühne genommen werden.
